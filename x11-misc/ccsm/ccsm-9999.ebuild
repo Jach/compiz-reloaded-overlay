@@ -3,8 +3,9 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{4,5,6,7,8,9,10,11} )
+PYTHON_COMPAT=( python3_{4,5,6,7,8,9,10,11,12,13} )
 DISTUTILS_IN_SOURCE_BUILD=1
+DISTUTILS_USE_PEP517=no
 DISTUTILS_SINGLE_IMPL=1
 inherit distutils-r1 git-r3 gnome2-utils
 
@@ -41,12 +42,26 @@ python_prepare_all() {
 	distutils-r1_python_prepare_all
 }
 
-python_configure_all() {
-	mydistutilsargs=(
-		build
-		"--prefix=/usr"
-		"--with-gtk=$(usex gtk3 3.0 2.0)"
-	)
+#python_configure_all() {
+#	DISTUTILS_ARGS=(
+#		build
+#		"--prefix=/usr"
+#		"--with-gtk=$(usex gtk3 3.0 2.0)"
+#	)
+#}
+
+python_compile() {
+	local build_args=( "build" )
+	if use gtk3; then
+		build_args+=( "--with-gtk=3.0" )
+	fi
+	esetup.py "${build_args[@]}"
+}
+
+python_install() {
+	local install_args=( "install" "--root=${D}" "--prefix=/usr" )
+	esetup.py "${install_args[@]}"
+	python_optimize
 }
 
 pkg_postinst() {

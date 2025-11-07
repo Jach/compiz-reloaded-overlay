@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{4,5,6,7,8,9,10,11} )
+PYTHON_COMPAT=( python3_{4,5,6,7,8,9,10,11,12,13} )
 
+DISTUTILS_USE_PEP517=no
 DISTUTILS_SINGLE_IMPL=1
 inherit distutils-r1 git-r3 gnome2-utils
 
@@ -30,27 +31,45 @@ RDEPEND="${PYTHON_DEPS}
 	)
 	qt5? (
 		$(python_gen_cond_dep '
-			dev-python/PyQt5[${PYTHON_USEDEP}]
+		    dev-python/pyqt5[${PYTHON_USEDEP}]
 		')
 	)
 "
 
 DEPEND="${RDEPEND}"
 
-src_configure() {
-	DISTUTILS_ARGS=(
-		build
-		"--with-qt=5.0"
-		"--with-gtk=3.0"
-	)
+#src_configure() {
+#	DISTUTILS_ARGS=(
+#		build
+#		--with-qt 5.0
+#		--with-gtk 3.0
+#	)
+#}
+#
+#src_install() {
+#	DISTUTILS_ARGS=(
+#		install
+#		--prefix=/usr
+#	)
+#	distutils-r1_python_install_all
+#}
+
+
+python_compile() {
+	local build_args=( "build" )
+	if use gtk3; then
+		build_args+=( "--with-gtk=3.0" )
+	fi
+	if use qt5; then
+		build_args+=( "--with-qt=5.0" )
+	fi
+	esetup.py "${build_args[@]}"
 }
 
-src_install() {
-	DISTUTILS_ARGS=(
-		install
-		--prefix=/usr
-	)
-	distutils-r1_python_install_all
+python_install() {
+	local install_args=( "install" "--root=${D}" "--prefix=/usr" )
+	esetup.py "${install_args[@]}"
+	python_optimize
 }
 
 pkg_postinst() {

@@ -2,8 +2,9 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{4,5,6,7,8,9,10,11,12} )
+PYTHON_COMPAT=( python3_{4,5,6,7,8,9,10,11,12,13} )
 
+DISTUTILS_USE_PEP517=setuptools
 DISTUTILS_SINGLE_IMPL=1
 inherit distutils-r1 gnome2-utils
 

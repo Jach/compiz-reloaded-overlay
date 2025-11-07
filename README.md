@@ -1,5 +1,66 @@
 # compiz-reloaded-overlay
 
+## Jach's notes
+
+I just want to keep my wobbly windows, man.
+
+Portage was complaining about certain ebuild files using setuptools no longer being supported in the old way.
+
+I've been getting this stuff to continue to work since ~2009 with a combination of finding other people's forks and/or making local-only changes, I decided to
+make a public fork since no one seemed to update for the latest breaking changes. (Thanks Gentoo upstream...)
+
+I'll try to keep things working on my local system for the indefinite future. Bug me with an Issue if something isn't working for you.
+
+Note that I basically ignore the explicit versions like 0.8.18, and just install straight from the latest-from-source versions of packages on gitlab, i.e. 9999. Here is my `package.accept_keywords/compiz`:
+
+```
+x11-apps/fusion-icon **
+dev-python/compizconfig-python **
+x11-wm/compiz **
+x11-apps/compiz-manager **
+x11-libs/compiz-bcop **
+x11-libs/libcompizconfig **
+x11-misc/ccsm **
+x11-misc/compiz-debug-utils **
+x11-misc/simple-ccsm **
+x11-plugins/compicc **
+x11-plugins/compiz-extra-snowflake-textures **
+x11-plugins/compiz-plugins-community **
+x11-plugins/compiz-plugins-experimental **
+x11-plugins/compiz-plugins-extra **
+x11-plugins/compiz-plugins-main **
+x11-plugins/compiz-plugins-meta **
+x11-themes/emerald-themes **
+x11-wm/compiz-meta **
+x11-wm/emerald **
+```
+
+However, according to `eix --only-names --installed --in-overlay compiz-reloaded` I only have this set installed (as of late 2025):
+
+```
+dev-python/compizconfig-python
+x11-apps/fusion-icon
+x11-libs/compiz-bcop
+x11-libs/libcompizconfig
+x11-misc/ccsm
+x11-misc/compiz-debug-utils
+x11-plugins/compiz-plugins-experimental
+x11-plugins/compiz-plugins-extra
+x11-plugins/compiz-plugins-main
+x11-plugins/compiz-plugins-meta
+x11-themes/emerald-themes
+x11-wm/compiz
+x11-wm/compiz-meta
+x11-wm/emerald
+```
+
+I've also got these USE flags:
+
+```
+x11-wm/emerald gtk3
+x11-wm/compiz gtk3 marco
+```
+
 ## Info
 
 As ethus3h no longer maintains this repository, I have decided to try doing it myself.
