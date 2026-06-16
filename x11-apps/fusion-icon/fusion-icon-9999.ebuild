@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-PYTHON_COMPAT=( python3_{4,5,6,7,8,9,10,11,12,13} )
+PYTHON_COMPAT=( python3_{4,5,6,7,8,9,10,11,12,13,14} )
 
 DISTUTILS_USE_PEP517=no
 DISTUTILS_SINGLE_IMPL=1
@@ -27,7 +27,7 @@ RDEPEND="${PYTHON_DEPS}
 	x11-apps/mesa-progs
 	>=x11-wm/compiz-${PV}
 	gtk3? (
-		dev-libs/libappindicator:3
+		dev-libs/libayatana-appindicator
 	)
 	qt5? (
 		$(python_gen_cond_dep '
